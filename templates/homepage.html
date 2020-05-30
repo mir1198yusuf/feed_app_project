@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load custom_tags %}
+
+{% block pagetitle %}
+	FEEDS
+{% endblock pagetitle %}
+
+{% block content %}
+	<a href="{% url 'new_post' %}" class="w3-button w3-round  w3-text-white w3-dark-grey ">New post</a>
+	<a onclick="displayfilters()" class="w3-button w3-round w3-text-white  w3-dark-grey ">Filter</a>
+	<div id="filterpanel" class="w3-card w3-margin w3-text-dark-grey w3-round-large w3-padding w3-topbar w3-leftbar w3-rightbar w3-bottombar" style="display: none; width: max-content;" >
+		<form method="get" action="{% url 'home_page' %}" novalidate>
+			<div>Keyword : <br><input type="text" class="w3-round" name="keyword"></div>
+			<div>Created by : <br><input type="text" class="w3-round" name="created_by"></div>
+			<br><input type="submit" class="w3-button w3-text-white w3-round w3-grey" value="Apply">
+		</form>
+	</div>
+	{% for post in posts %}
+		<div class="w3-card w3-panel w3-leftbar w3-margin w3-border-dark-grey w3-light-grey" >
+			<div class="w3-panel w3-dark-grey">
+				<span style="width: 45%; float: left;">Created by : {{ post.created_by }}</span>
+				<span style="float: left;">Upvotes : {{ post.upvotes.count }}</span>
+				<span style="float: right;">Created on : {{ post.created_on|naturaltime }}</span>
+			</div>
+			<div>
+				<span class="w3-xlarge w3-text-dark-grey">❝</span>
+				<div class="w3-text-dark-grey">{{ post.message|linebreaksbr }}</div>
+				<span class="w3-xlarge w3-text-dark-grey">❞</span>
+			</div>
+			<div class="w3-margin-bottom w3-text-dark-grey">
+				{% if post.file %}
+					{% urltype post.file.url as temp %}
+					{% if temp == 'image' %}
+						<img src="{{ post.file.url }}" alt="image" width="200" height="200" >
+					{% elif temp == 'video' %}
+						<video width="256" height="200" controls >
+							<source src="{{ post.file.url }}" type="video/mp4">
+							Your browser does not support video tag
+						</video>
+					{% else %}
+						Attachments : <a href="{{ post.file.url }}" >file</a>
+					{% endif %}
+				{% endif %}
+			</div>
+			<div class="w3-text-dark-grey">
+				<a href="{% url 'comments_url' post.id %}">{{ post.comments.count }} Comments</a>
+				{% has_user_upvoted_post post user as temp %}
+				{% if temp %}
+					<small>You upvoted</small>
+				{% elif user != post.created_by %}
+					<a href="{% url 'upvote_url' post.id %}?page={{ page_obj.number }}" >Click to upvote</a>
+				{% else %}
+					<small>You created</small>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock content %}

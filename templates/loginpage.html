@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %}
+	LOGIN
+{% endblock pagetitle %}
+
+{% block content %}
+	<a href="{% url 'home_page' %}" class="w3-button w3-dark-grey w3-round w3-text-white" >Back to Feeds</a>
+	<div class="w3-card-4 w3-container w3-margin-top  w3-light-grey w3-width-60 " >
+		<form method="post" class="w3-form-element" novalidate>
+			{% csrf_token %}
+			{% include 'form_template.html' %}
+			<button type="submit" class="w3-button w3-dark-grey w3-round w3-wide">Login</button>
+		</form>
+	</div>
+{% endblock content %}

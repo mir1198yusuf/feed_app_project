@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %}
+	NEW COMMENTS
+{% endblock pagetitle %}
+
+{% block content %}
+	<a href="{% url 'comments_url' post.id %}" class="w3-button w3-dark-grey w3-round w3-text-white" >Back to Comments</a>
+	<div class="w3-card-4 w3-container w3-margin-top  w3-light-grey w3-width-60" >
+		<form method="post" class="w3-form-element" novalidate>
+			{% csrf_token %}
+			{% include 'form_template.html' %}
+			<button type="submit" class="w3-button w3-dark-grey w3-round w3-wide">Create comment</button>
+		</form>
+	</div>
+{% endblock content %}

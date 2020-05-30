@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block pagetitle %}
+	COMMENTS
+{% endblock pagetitle %}
+
+{% block content %}
+	<a href="{% url 'new_comment' post.id %}" class="w3-button w3-round  w3-text-white w3-dark-grey ">New comment</a>
+	<a href="{% url 'home_page' %}" class="w3-button w3-round  w3-text-white w3-dark-grey ">Back to Feeds</a>
+	{% for comment in comments %}
+		<div class="w3-card w3-panel w3-leftbar w3-margin w3-border-dark-grey w3-light-grey" >
+			<div class="w3-panel w3-dark-grey">
+				<span >Created by : {{ comment.created_by }}</span>
+				<span style="float: right;">Upvotes : {{ comment.created_on|naturaltime }}</span>
+			</div>
+			<div>
+				<span class="w3-xlarge w3-text-dark-grey">❝</span>
+				<div class="w3-text-dark-grey">{{ comment.message|linebreaksbr }}</div>
+				<span class="w3-xlarge w3-text-dark-grey">❞</span>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock content %}

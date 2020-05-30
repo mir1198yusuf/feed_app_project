@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<title>Feed App</title>
+		<link rel="stylesheet" href="{% static 'css/w3.css' %}" >
+		<script src="{% static 'js/index.js' %}"></script>
+	</head>
+	<body style="font-family: Consolas;">
+		<div class="w3-dark-grey w3-center">
+			<h1 class="w3-text-white w3-wide w3-inline-block">Feed App</h1>
+			{% if user.is_authenticated %}
+				<div class="w3-dropdown-hover w3-inline-block w3-right w3-margin-right">
+					<button class="w3-button w3-dark-grey w3-text-white w3-xlarge w3-round-large">
+						{{ user.username }}
+					</button>
+					<div class="w3-dropdown-content w3-bar-block w3-grey w3-text-white w3-large" style="right: 0;" >
+						<a href="{% url 'logout_url' %}" class="w3-bar-item w3-button">
+							Logout
+						</a>
+					</div>
+				</div>
+			{% else %}
+				<a href="{% url 'login_url' %}" class="w3-button w3-round-large w3-dark-grey w3-text-white w3-inline-block w3-right w3-xlarge w3-margin-right" >
+					Login
+				</a>
+			{% endif %}
+		</div>
+
+		<div class="w3-panel w3-grey w3-text-white w3-center">
+			<h4><b>
+				{% block pagetitle %}
+				{% endblock pagetitle %}
+			</b></h4>
+		</div>
+
+		<div class="w3-margin w3-container">
+			{% block content %}
+			{% endblock content %}
+
+			{% block pagination %} 
+				{% include 'pagination.html' %}	
+			{% endblock pagination %}
+		</div>
+	</body>
+</html>

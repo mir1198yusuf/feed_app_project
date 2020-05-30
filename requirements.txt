@@ -1,0 +1,9 @@
+dj-database-url==0.5.0
+Django==2.2.11
+packaging==20.4
+pyparsing==2.4.7
+python-decouple==3.3
+pytz==2020.1
+six==1.15.0
+sqlparse==0.3.1
+webencodings==0.5.1
