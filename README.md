@@ -51,6 +51,6 @@ I created this project as a part of tech evaluation assignment for internship op
 
 ## Demo live site
 
-This will be updated soon.
+The project is live at [site](https://bit.ly/feed_live)
 
 
